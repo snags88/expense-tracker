@@ -5,6 +5,7 @@
       React.DOM.h2
         className: 'title'
         'Records'
+      React.createElement RecordForm, handleNewRecord: @addRecord
       React.DOM.table
         className: 'table table-bordered'
         React.DOM.thead null,
@@ -19,3 +20,7 @@
     records: @props.data
   getDefaultProps: ->
     records: []
+  addRecord: (record) ->
+    records = @state.records.slice()
+    records.push record
+    @setState records: records
