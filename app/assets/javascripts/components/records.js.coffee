@@ -27,9 +27,12 @@
   getDefaultProps: ->
     records: []
   addRecord: (record) ->
-    records = @state.records.slice()
-    records.push record
+    records = React.addons.update(@state.records, {$push: [record]})
     @setState records: records
+  deleteRecord: (record) ->
+    index = @state.records.indexOf record
+    records = React.addons.update(@state.records, {$splice: [[index, 1]]})
+    @replaceState records: records
   credits: ->
     credits = @state.records.filter (val) -> val.amount >= 0
     credits.reduce ((prev, curr) ->
@@ -42,8 +45,3 @@
     ),0
   balance: ->
     @credits() + @debits()
-  deleteRecord: (record) ->
-    records = @state.records.slice()
-    index = records.indexOf record
-    records.splice index, 1
-    @replaceState records: records

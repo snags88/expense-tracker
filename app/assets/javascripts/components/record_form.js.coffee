@@ -49,4 +49,4 @@
     $.post '', {record: @state}, (data) =>
       @props.handleNewRecord data
       @setState @getInitialState()
-      , 'JSON'
+    , 'JSON'
